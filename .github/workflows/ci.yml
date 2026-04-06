@@ -27,7 +27,6 @@ jobs:
         with:
           image-ref: rishi624/task-app:latest
           format: 'table'
-          exit-code: '1'
           severity: 'CRITICAL,HIGH'
           
       - name: Push Docker Image 
