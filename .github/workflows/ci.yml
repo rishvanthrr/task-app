@@ -21,6 +21,7 @@ jobs:
 
       - name: Push Docker Image
         run: docker push rishi624/task-app:latest
+        
       - name: Scan Docker Image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
@@ -28,5 +29,6 @@ jobs:
           format: 'table'
           exit-code: '1'
           severity: 'CRITICAL,HIGH'
+          
       - name: Push Docker Image 
         run: docker push rishi624/task-app:latest
