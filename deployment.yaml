@@ -1,19 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: task-app
+name: task-app
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: task-app
-  template:
-    metadata:
-      labels:
-        app: task-app
-    spec:
-      containers:
-      - name: task-app
-        image: rishi624/task-app:latest
-        ports:
-        - containerPort: 3000
+replicas: 2
+selector:
+matchLabels:
+app: task-app
+template:
+metadata:
+labels:
+app: task-app
+spec:
+containers:
+- name: task-app
+image: rishi624/task-app:latest
+ports:
+- containerPort: 3000
+resources:
+requests:
+cpu: "100m"
+memory: "128Mi"
+limits:
+cpu: "250m"
+memory: "256Mi"
+readinessProbe:
+httpGet:
+path: /
+port: 3000
+initialDelaySeconds: 5
+periodSeconds: 10
+livenessProbe:
+httpGet:
+path: /
+port: 3000
+initialDelaySeconds: 15
+periodSeconds: 20
