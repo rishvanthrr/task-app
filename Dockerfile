@@ -1,17 +1,15 @@
-# Use Python image
-FROM python:3.9
+FROM python:3.9-slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy files
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
 
-# Install dependencies
-RUN pip install -r requirements.txt
+RUN useradd -m appuser
+USER appuser
 
-# Expose port
 EXPOSE 3000
 
-# Run app
 CMD ["python", "app.py"]
