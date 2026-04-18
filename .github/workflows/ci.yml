@@ -13,6 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Updated to v4 for better compatibility
+        with:
+          python-version: '3.9'  # Adjust to match your app's Python version (e.g., from Dockerfile or requirements)
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # This installs pytest, Flask, etc.
+
       - name: Run tests
         run: pytest test_app.py
 
@@ -31,6 +41,3 @@ jobs:
           image-ref: rishi624/task-app:latest
           format: 'table'
           severity: 'CRITICAL,HIGH'
-          
-      - name: Push Docker Image 
-        run: docker push rishi624/task-app:latest
